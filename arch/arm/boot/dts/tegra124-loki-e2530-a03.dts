@@ -1,0 +1,30 @@
+#include "tegra124-loki.dts"
+#include "tegra124-platforms/tegra124-loki-powermon-p2530-a01.dtsi"
+
+/ {
+	i2c@7000c400 {
+		ina3221x@40 {
+			channel@0 {
+				ti,shunt-resistor-mohm = <5>;
+			};
+		};
+	};
+
+	i2c@7000c000 {
+		jsa1127@39 {
+			solteam-opto,rint = <800>;
+			solteam-opto,integration-time = <1000>;
+			solteam-opto,noisy = <0>;
+		};
+
+		lc709203f@0b {
+			onsemi,alert-low-rsoc = <2>;
+		};
+
+		bq2419x: bq2419x@6b {
+			charger {
+				ti,charge-status-gpio = <&gpio TEGRA_GPIO(H, 7) 0>;
+			};
+		};
+	};
+};
